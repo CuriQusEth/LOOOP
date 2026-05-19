@@ -32,6 +32,54 @@ async function startServer() {
   app.post("/api/mcp", (req, res) => {
     try {
       const body = req.body;
+      const { method, params, id } = body;
+      
+      // Standard MCP protocol JSON-RPC handling
+      if (method) {
+        let result = {};
+        
+        switch(method) {
+          case 'initialize':
+            result = {
+              protocolVersion: "2024-11-05",
+              capabilities: { tools: {}, prompts: {}, resources: {} },
+              serverInfo: { name: "Looop Three Orchestrator", version: "1.0.0" }
+            };
+            break;
+          case 'tools/list':
+            result = {
+              tools: [
+                { name: "get_race_status", description: "Get the current race status.", inputSchema: { type: "object", properties: {} } },
+                { name: "start_race", description: "Start a new race.", inputSchema: { type: "object", properties: {} } },
+                { name: "get_leaderboard", description: "Get the current leaderboard stats.", inputSchema: { type: "object", properties: {} } },
+                { name: "optimize_speed", description: "Optimize the loop speed.", inputSchema: { type: "object", properties: {} } },
+                { name: "get_track_info", description: "Get current track and loop information.", inputSchema: { type: "object", properties: {} } }
+              ]
+            };
+            break;
+          case 'tools/call':
+            result = {
+              content: [{ type: "text", text: `Tool ${params?.name} executed successfully.` }]
+            };
+            break;
+          case 'prompts/list':
+            result = { prompts: [] };
+            break;
+          case 'resources/list':
+            result = { resources: [] };
+            break;
+          default:
+            return res.status(404).json({ error: "Method not found" });
+        }
+        
+        return res.json({
+          jsonrpc: "2.0",
+          id: id || null,
+          result
+        });
+      }
+
+      // Fallback for custom webhook pings
       res.json({
         status: "success",
         message: "MCP command received",
@@ -44,7 +92,7 @@ async function startServer() {
     }
   });
 
-  // Agent API Endpoint
+  // Agent GET Endpoint
   app.get("/api/agent", (req, res) => {
     res.json({
       name: "Looop Three Orchestrator",
@@ -52,6 +100,16 @@ async function startServer() {
       wallet: "0x29536D0bc1004ab274c4F0F59734Ad74D4559b7B",
       platform: "Looop Three",
       version: "1.0.0"
+    });
+  });
+
+  // Agent POST Endpoint
+  app.post("/api/agent", (req, res) => {
+    res.json({
+      name: "Looop Three Orchestrator",
+      status: "active",
+      message: "Agent endpoint POST action received",
+      receivedAt: new Date().toISOString()
     });
   });
 
