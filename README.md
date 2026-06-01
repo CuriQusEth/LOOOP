@@ -19,19 +19,19 @@ This application is built with React, Vite, Tailwind CSS, Canvas, and Framer Mot
 - Tailwind CSS v4
 - Framer Motion
 - Wagmi + Viem
-- Express Server
+- Next.js 14 (App Router compatible API routes)
 
 ## AI Agent Integrations
-LOOOP integrates Agent-to-Agent (A2A) communications and Model Context Protocol (MCP) endpoints using the standard Next.js 14 App Router format. Simply copy the `app/` folder to your Vercel deployment structure:
+LOOOP integrates Agent-to-Agent (A2A) communications and Model Context Protocol (MCP) endpoints using the standard Next.js 14 App Router format.
 
 - **`/.well-known/agent-card.json`**: Agent discovery & identity.
-- **`/app/api/mcp/route.ts`**: Active model context control operations via JSON-RPC. Returns the following standard tools:
+- **`/api/mcp`**: Active model context control operations via JSON-RPC. Returns the following standard tools:
   - `get_race_status`
   - `start_race`
   - `get_leaderboard`
   - `optimize_speed`
   - `get_track_info`
-- **`/app/api/agent/route.ts`**: Primary agent status and synchronization via GET/POST.
+- **`/api/agent`**: Primary agent status and synchronization via GET/POST.
 
 ## Development
 

@@ -36,6 +36,28 @@
     "recursion-handling",
     "mcp-command-execution"
   ],
+  "skills": [
+    {
+      "name": "get_race_status",
+      "description": "Get the current race status"
+    },
+    {
+      "name": "start_race",
+      "description": "Start a new race"
+    },
+    {
+      "name": "get_leaderboard",
+      "description": "Get the current leaderboard stats"
+    },
+    {
+      "name": "optimize_speed",
+      "description": "Optimize the loop speed"
+    },
+    {
+      "name": "get_track_info",
+      "description": "Get current track and loop information"
+    }
+  ],
   "supportedChains": ["eip155:8453"],
   "active": true,
   "status": "online"
