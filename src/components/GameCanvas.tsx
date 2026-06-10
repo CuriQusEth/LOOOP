@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useGameStore } from '../store/gameStore';
-import { RecordRunButton } from './Web3Components';
+import { RecordRunButton, SayGMButton } from './Web3Components';
 import { motion, AnimatePresence } from 'motion/react';
 
 // --- Types ---
@@ -405,7 +405,10 @@ export function GameCanvas() {
                </div>
             </div>
 
-            <RecordRunButton distance={distanceDisplay} loops={loopsDisplay} />
+            <div className="flex flex-col items-center gap-4">
+              <RecordRunButton distance={distanceDisplay} loops={loopsDisplay} />
+              <SayGMButton />
+            </div>
 
             <div className="mt-8 flex space-x-4">
               <button 

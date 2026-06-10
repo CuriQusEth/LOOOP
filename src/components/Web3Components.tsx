@@ -86,3 +86,40 @@ export function RecordRunButton({ distance, loops }: { distance: number, loops: 
     </motion.button>
   );
 }
+
+import { Sun } from 'lucide-react';
+
+export function SayGMButton() {
+  const { address, isConnected } = useAccount();
+  const { sendTransactionAsync } = useSendTransaction();
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success'>('idle');
+
+  const sendGMTransaction = async () => {
+    if (!address) return;
+    try {
+      setStatus('sending');
+      await sendTransactionAsync({
+        to: '0xcD0dd3716C5561De47a24949335dF8a8CD8F71a3',
+        value: 0n,
+        data: '0x474d' // 'GM'
+      });
+      setStatus('success');
+      setTimeout(() => setStatus('idle'), 3000);
+    } catch {
+      setStatus('idle');
+    }
+  };
+
+  if (!isConnected) return null;
+
+  return (
+    <button 
+      onClick={sendGMTransaction}
+      disabled={status !== 'idle'}
+      className="px-3 py-2 rounded-lg bg-[#E8A020]/20 hover:bg-[#E8A020]/30 border border-[#E8A020]/40 text-[#E8A020] transition-colors flex items-center gap-2 font-['Cinzel'] text-xs font-bold disabled:opacity-50"
+    >
+      <Sun size={14} />
+      {status === 'idle' ? 'Say GM' : status === 'sending' ? 'Sending...' : 'GM Said!'}
+    </button>
+  );
+}
