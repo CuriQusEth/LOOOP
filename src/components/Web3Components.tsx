@@ -7,10 +7,16 @@ export function WalletConnect() {
   const { address, isConnected } = useAccount();
   const { connectors, connect } = useConnect();
   const { disconnect } = useDisconnect();
-  const { sendTransactionAsync } = useSendTransaction();
   
   return (
-    <div className="absolute top-4 right-4 z-50 flex items-center space-x-3 text-sm font-mono">
+    <div className="absolute top-4 right-4 z-50 flex items-center space-x-2 sm:space-x-3 text-xs sm:text-sm font-mono">
+      {/* Base Denim Mainnet Indicator */}
+      <div className="hidden sm:flex items-center space-x-1.5 px-2.5 py-1 bg-blue-950/40 border border-blue-500/40 text-blue-300 rounded-full text-xs">
+        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span className="font-semibold">Base Denim</span>
+        <span className="text-[10px] text-blue-400/80">200ms</span>
+      </div>
+
       {isConnected ? (
         <>
           <div className="px-3 py-1.5 bg-black/60 border border-neon-cyan/50 text-neon-cyan rounded-full backdrop-blur-md box-glow-cyan shadow-neon">
@@ -26,7 +32,7 @@ export function WalletConnect() {
       ) : (
         <button
           onClick={() => connect({ connector: connectors[0] })}
-          className="px-4 py-2 bg-neon-cyan/20 border border-neon-cyan text-neon-cyan rounded-sm hover:bg-neon-cyan/30 transition-all box-glow-cyan uppercase font-bold tracking-widest relative overflow-hidden group"
+          className="px-4 py-2 bg-neon-cyan/20 border border-neon-cyan text-neon-cyan rounded-sm hover:bg-neon-cyan/30 transition-all box-glow-cyan uppercase font-bold tracking-widest relative overflow-hidden group text-xs sm:text-sm"
         >
           <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-cyan-300/30 to-transparent -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-out"></div>
           Connect Base
@@ -46,13 +52,13 @@ export function RecordRunButton({ distance, loops }: { distance: number, loops: 
     if (!address) return;
     try {
       setStatus('signing');
-      // Step 1: SIWE signature for proof
-      const message = `I am verifying my LOOOP run on Base Mainnet.\nLoops: ${loops}\nDistance: ${distance}\nForever on-chain.`;
+      // Step 1: SIWE signature for proof on Base Denim Mainnet
+      const message = `I am verifying my LOOOP run on Base Denim Mainnet (200ms blocks).\nLoops: ${loops}\nDistance: ${distance}\nForever on-chain.`;
       await signMessageAsync({ message, account: address });
       
       setStatus('sending');
       // Step 2: Record transaction with ERC-8021
-      const calldata = encodeAttributionData(`LOOOP_SCORE:${distance};LOOPS:${loops}`);
+      const calldata = encodeAttributionData(`LOOOP_SCORE:${distance};LOOPS:${loops};CHAIN:BASE_DENIM_MAINNET`);
       await sendTransactionAsync({
         to: address, // Send to self
         value: 0n,

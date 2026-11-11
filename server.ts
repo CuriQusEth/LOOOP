@@ -17,8 +17,11 @@ async function startServer() {
       protocol: "MCP",
       version: "1.0.0",
       name: "Looop Three MCP Endpoint",
+      network: "Base Mainnet (Denim)",
+      chainId: 8453,
+      blockTime: "200ms",
       status: "active",
-      description: "Active MCP server for Looop Three Orchestrator Agent",
+      description: "Active MCP server for Looop Three Orchestrator Agent on Base Denim Mainnet",
       capabilities: [
         "loop-mechanics", 
         "cyclic-automation", 
@@ -97,6 +100,9 @@ async function startServer() {
     res.json({
       name: "Looop Three Orchestrator",
       status: "active",
+      network: "Base Mainnet (Denim)",
+      chainId: 8453,
+      blockTime: "200ms",
       wallet: "0x29536D0bc1004ab274c4F0F59734Ad74D4559b7B",
       platform: "Looop Three",
       version: "1.0.0"

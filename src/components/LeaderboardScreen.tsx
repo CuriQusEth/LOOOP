@@ -44,17 +44,23 @@ export function LeaderboardScreen() {
       exit={{ opacity: 0, x: '-100%' }}
       className="absolute inset-0 bg-black/95 p-6 flex flex-col z-20"
     >
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 mt-8 space-y-4 sm:space-y-0">
-        <h2 className="text-4xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-white text-glow-cyan uppercase">
-          Eternal Loopers
-        </h2>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 mt-6 space-y-4 sm:space-y-0">
+        <div>
+          <h2 className="text-4xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-r from-neon-cyan to-white text-glow-cyan uppercase">
+            Eternal Loopers
+          </h2>
+          <p className="text-xs font-mono text-neon-cyan/70 flex items-center gap-1.5 mt-1">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Base Denim Mainnet &bull; 200ms Canonical Blocks
+          </p>
+        </div>
         {isConnected && (
           <button 
             onClick={handleGM}
             disabled={gmStatus !== 'idle'}
-            className="px-4 py-2 border border-neon-cyan text-neon-cyan font-mono text-sm uppercase rounded-sm hover:bg-neon-cyan/20 disabled:opacity-50"
+            className="px-4 py-2 border border-neon-cyan text-neon-cyan font-mono text-xs uppercase rounded-sm hover:bg-neon-cyan/20 disabled:opacity-50 flex items-center gap-2"
           >
-            {gmStatus === 'idle' ? 'Say GM On-Chain' : gmStatus === 'sending' ? 'Broadcasting...' : 'GM Said!'}
+            {gmStatus === 'idle' ? 'Say GM On Denim Mainnet' : gmStatus === 'sending' ? 'Broadcasting (200ms)...' : 'GM Immortallized!'}
           </button>
         )}
       </div>
